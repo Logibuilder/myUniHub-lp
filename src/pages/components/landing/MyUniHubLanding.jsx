@@ -9,6 +9,8 @@ import FeaturesSection from './FeaturesSection';
 import AIShowcase from './AIShowcase';
 import CollaborationShowcase from './CollaborationShowcase';
 import DashboardPreview from './DashboardPreview';
+import DashboardPreview_1 from './dashboardPreview_1';
+import DashboardPreview_2 from './dashboardPreview_2';
 import AboutSection from './AboutSection';
 import HelpSection from './HelpSection';
 import ContactSection from './ContactSection';
@@ -27,6 +29,8 @@ const MyUniHubLanding = () => {
       <AIShowcase />
       <CollaborationShowcase />
       <DashboardPreview />
+      <DashboardPreview_1 />
+      <DashboardPreview_2 />
       <AboutSection />
       <HelpSection />
       <ContactSection />

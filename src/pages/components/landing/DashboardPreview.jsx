@@ -6,10 +6,24 @@ const DashboardPreview = () => {
   const [activeTab, setActiveTab] = useState('Dashboard');
   const [notifications, setNotifications] = useState([]);
 
+
+  const getUserInfo = (tab) => {
+    const userConfigs = {
+      'Planning': { name: 'Ali Ousmane', avatar: 'A', university: 'Université Paul Sabatier' },
+      'Dashboard': { name: 'Assane KANE', avatar: 'A', university: 'Université Jean Jaurès' },
+      'Subject': { name: 'Annadif Abdel Rahim', avatar: 'A', university: 'Université Lille 1' },
+      'Notes': { name: 'Youssouf Ali Rozi', avatar: 'Y', university: 'Université de Montpellier' },
+      'Quiz': { name: 'Assane KANE', avatar: 'A', university: 'Université Paul Sabatier' }
+    };
+    return userConfigs[tab] || userConfigs['Dashboard'];
+  };
+
+  const currentUser = getUserInfo(activeTab);
+  
   const handleNavClick = (tab) => {
     setActiveTab(tab);
     // Ajouter une notification temporaire pour montrer l'interaction
-    const newNotification = {
+    const newNotification = { 
       id: Date.now(),
       message: `Navigation vers ${tab}`,
       type: 'info'
@@ -59,9 +73,9 @@ const DashboardPreview = () => {
 
       case 'Planning':
         return (
-          <div className={styles.tabContent}>
+          <>
             <img src="/imgs/planning.jpg" alt="dashboard" className="w-full "   />
-          </div>
+          </>
         );
 
       case 'Subject':
@@ -167,17 +181,17 @@ const DashboardPreview = () => {
                 </span>
               </nav>
               <div className={styles.userInfo}>
-                <span>Ali Ousmane</span>
-                <div className={styles.avatar}>A</div>
+                <span>{currentUser.name}</span>
+                <div className={styles.avatar}>{currentUser.avatar}</div>
               </div>
             </div>
 
             {/* Welcome Section */}
             <div className={styles.welcomeSection}>
-              <h1 className={styles.welcomeTitle}>Bonjour, Ali Ousmane! 👋</h1>
+              <h1 className={styles.welcomeTitle}>Bonjour, {currentUser.name}! 👋</h1>
               <p className={styles.welcomeSubtext}>💪 Continuez sur cette lancée !</p>
               <div className={styles.universityBadge}>
-                🏫 Université Sorbonne
+                🏫 {currentUser.university}
               </div>
             </div>
 
@@ -185,12 +199,6 @@ const DashboardPreview = () => {
             {renderContent()}
           </div>
         </div>
-      </div>
-      <div className={styles.container}>
-        <img src="/imgs/open_note.jpg" alt="notes" className="w-full "   />
-      </div>
-      <div className={styles.container}>
-        <img src="/imgs/vide_note.jpg" alt="notes" className="w-full "   />
       </div>
     </section>
   );
