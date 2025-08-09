@@ -1,4 +1,3 @@
-// components/landing/ContactSection.jsx
 import React, { useState } from 'react';
 
 const ContactMethod = ({ icon, title, info, subtitle }) => {
@@ -36,28 +35,49 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulation d'envoi
-    setTimeout(() => {
-      setSubmitStatus('Message envoyé !');
-      setIsSubmitting(false);
-      
-      setTimeout(() => {
-        setSubmitStatus('');
+    try {
+      const response = await fetch('https://formspree.io/f/mblkqrln', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _replyto: formData.email,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('Message envoyé avec succès !');
         setFormData({
           name: '',
           email: '',
           subject: '',
           message: ''
         });
-      }, 2000);
-    }, 1500);
+      } else {
+        throw new Error('Erreur lors de l\'envoi du message');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus('Erreur lors de l\'envoi. Veuillez réessayer.');
+    } finally {
+      setIsSubmitting(false);
+      
+      setTimeout(() => {
+        setSubmitStatus('');
+      }, 3000);
+    }
   };
 
   const contactMethods = [
     {
       icon: "📧",
       title: "Email",
-      info: "support@myunihub.fr",
+      info: "myunihub.contacte@gmail.com",
       subtitle: "Réponse sous 24h"
     },
     {
